@@ -1,11 +1,17 @@
 //
-//  Sconnesso.swift
+//  Disconnected.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 31/05/24.
 //
 import Foundation
 
+/**
+ * Checks if a degree sequence is valid.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A boolean indicating if the degree sequence is valid.
+ */
 func is_valid_degree_sequence(degree_sequence: [Int]) -> Bool {
     let degree_sequence = degree_sequence.sorted(by: >)
     let n = degree_sequence.count
@@ -20,6 +26,12 @@ func is_valid_degree_sequence(degree_sequence: [Int]) -> Bool {
     return true
 }
 
+/**
+ * Constructs a degree sequence using the Havel-Hakimi algorithm.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: An array representing the degree sequence after construction, or nil if construction fails.
+ */
 func havel_hakimi_construction(degree_sequence: [Int]) -> [Int]? {
     var degree_sequence = degree_sequence.sorted(by: >)
     while !degree_sequence.isEmpty && degree_sequence[0] == 0 {
@@ -45,6 +57,12 @@ func havel_hakimi_construction(degree_sequence: [Int]) -> [Int]? {
     return degree_sequence
 }
 
+/**
+ * Checks if a graph is connected.
+ *
+ * - Parameter graph: The adjacency list of the graph.
+ * - Returns: A boolean indicating if the graph is connected.
+ */
 func is_connected_graph(graph: [[Int]]) -> Bool {
     let n = graph.count
     var visited = [Bool](repeating: false, count: n)
@@ -66,6 +84,12 @@ func is_connected_graph(graph: [[Int]]) -> Bool {
     return count == n
 }
 
+/**
+ * Builds a graph from a degree sequence.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A 2D array representing the adjacency list of the graph, or nil if construction fails.
+ */
 func build_graph_from_degrees(degree_sequence: [Int]) -> [[Int]]? {
     let n = degree_sequence.count
     var graph = [[Int]](repeating: [Int](), count: n)
@@ -89,6 +113,12 @@ func build_graph_from_degrees(degree_sequence: [Int]) -> [[Int]]? {
     return graph
 }
 
+/**
+ * Checks if a graph is disconnected based on its degree sequence.
+ *
+ * - Parameter score: The degree sequence as an array of integers.
+ * - Returns: A boolean indicating if the graph is disconnected.
+ */
 func is_graph_disconnected(score: [Int]) -> Bool {
     if score.allSatisfy({ $0 == 0 }) {
         return true

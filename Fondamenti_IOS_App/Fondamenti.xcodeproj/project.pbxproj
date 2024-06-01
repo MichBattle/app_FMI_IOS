@@ -7,38 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		860030342BF0D9FF0022E394 /* CalcolaModulo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860030332BF0D9FF0022E394 /* CalcolaModulo.swift */; };
+		860030342BF0D9FF0022E394 /* ModTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860030332BF0D9FF0022E394 /* ModTool.swift */; };
 		86A10BFA2C0A71830096C78F /* HamiltonianCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BF92C0A71830096C78F /* HamiltonianCycle.swift */; };
 		86A10BFC2C0A74B80096C78F /* Albero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFB2C0A74B80096C78F /* Albero.swift */; };
-		86A10BFE2C0A74C10096C78F /* DueConnesso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFD2C0A74C10096C78F /* DueConnesso.swift */; };
-		86A10C002C0A74C70096C78F /* Sconnesso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFF2C0A74C70096C78F /* Sconnesso.swift */; };
-		86C37D472C08598C00367615 /* Isomorfismi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C37D462C08598C00367615 /* Isomorfismi.swift */; };
+		86A10BFE2C0A74C10096C78F /* TwoConnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFD2C0A74C10096C78F /* TwoConnected.swift */; };
+		86A10C002C0A74C70096C78F /* Disconnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFF2C0A74C70096C78F /* Disconnected.swift */; };
+		86C37D472C08598C00367615 /* Isomorphisms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C37D462C08598C00367615 /* Isomorphisms.swift */; };
 		86C37D492C08599B00367615 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C37D482C08599B00367615 /* Score.swift */; };
 		86C37D4C2C08604400367615 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = 86C37D4B2C08604400367615 /* PythonKit */; };
 		86F7D3C32BEFED870063B9BD /* FondamentiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3C22BEFED870063B9BD /* FondamentiApp.swift */; };
 		86F7D3C52BEFED870063B9BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3C42BEFED870063B9BD /* ContentView.swift */; };
 		86F7D3C72BEFED890063B9BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86F7D3C62BEFED890063B9BD /* Assets.xcassets */; };
 		86F7D3CA2BEFED890063B9BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86F7D3C92BEFED890063B9BD /* Preview Assets.xcassets */; };
-		86F7D3D32BEFF0830063B9BD /* Esercizio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3D22BEFF0830063B9BD /* Esercizio2.swift */; };
-		86F7D3D52BEFF0990063B9BD /* Esercizio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3D42BEFF0990063B9BD /* Esercizio3.swift */; };
+		86F7D3D32BEFF0830063B9BD /* CongruencesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3D22BEFF0830063B9BD /* CongruencesSystem.swift */; };
+		86F7D3D52BEFF0990063B9BD /* RSACongruence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7D3D42BEFF0990063B9BD /* RSACongruence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		860030332BF0D9FF0022E394 /* CalcolaModulo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcolaModulo.swift; sourceTree = "<group>"; };
+		860030332BF0D9FF0022E394 /* ModTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModTool.swift; sourceTree = "<group>"; };
 		8647EB282C086F5E00A1A783 /* Fondamenti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fondamenti.entitlements; sourceTree = "<group>"; };
 		86A10BF92C0A71830096C78F /* HamiltonianCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamiltonianCycle.swift; sourceTree = "<group>"; };
 		86A10BFB2C0A74B80096C78F /* Albero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Albero.swift; sourceTree = "<group>"; };
-		86A10BFD2C0A74C10096C78F /* DueConnesso.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueConnesso.swift; sourceTree = "<group>"; };
-		86A10BFF2C0A74C70096C78F /* Sconnesso.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sconnesso.swift; sourceTree = "<group>"; };
-		86C37D462C08598C00367615 /* Isomorfismi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorfismi.swift; sourceTree = "<group>"; };
+		86A10BFD2C0A74C10096C78F /* TwoConnected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoConnected.swift; sourceTree = "<group>"; };
+		86A10BFF2C0A74C70096C78F /* Disconnected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disconnected.swift; sourceTree = "<group>"; };
+		86C37D462C08598C00367615 /* Isomorphisms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorphisms.swift; sourceTree = "<group>"; };
 		86C37D482C08599B00367615 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		86F7D3BF2BEFED870063B9BD /* Fondamenti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fondamenti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F7D3C22BEFED870063B9BD /* FondamentiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FondamentiApp.swift; sourceTree = "<group>"; };
 		86F7D3C42BEFED870063B9BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		86F7D3C62BEFED890063B9BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86F7D3C92BEFED890063B9BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		86F7D3D22BEFF0830063B9BD /* Esercizio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esercizio2.swift; sourceTree = "<group>"; };
-		86F7D3D42BEFF0990063B9BD /* Esercizio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esercizio3.swift; sourceTree = "<group>"; };
+		86F7D3D22BEFF0830063B9BD /* CongruencesSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongruencesSystem.swift; sourceTree = "<group>"; };
+		86F7D3D42BEFF0990063B9BD /* RSACongruence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSACongruence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,15 +77,15 @@
 				86F7D3C42BEFED870063B9BD /* ContentView.swift */,
 				86F7D3C62BEFED890063B9BD /* Assets.xcassets */,
 				86F7D3C82BEFED890063B9BD /* Preview Content */,
-				86F7D3D22BEFF0830063B9BD /* Esercizio2.swift */,
-				86F7D3D42BEFF0990063B9BD /* Esercizio3.swift */,
-				860030332BF0D9FF0022E394 /* CalcolaModulo.swift */,
-				86C37D462C08598C00367615 /* Isomorfismi.swift */,
+				86F7D3D22BEFF0830063B9BD /* CongruencesSystem.swift */,
+				86F7D3D42BEFF0990063B9BD /* RSACongruence.swift */,
+				860030332BF0D9FF0022E394 /* ModTool.swift */,
+				86C37D462C08598C00367615 /* Isomorphisms.swift */,
 				86C37D482C08599B00367615 /* Score.swift */,
 				86A10BF92C0A71830096C78F /* HamiltonianCycle.swift */,
 				86A10BFB2C0A74B80096C78F /* Albero.swift */,
-				86A10BFD2C0A74C10096C78F /* DueConnesso.swift */,
-				86A10BFF2C0A74C70096C78F /* Sconnesso.swift */,
+				86A10BFD2C0A74C10096C78F /* TwoConnected.swift */,
+				86A10BFF2C0A74C70096C78F /* Disconnected.swift */,
 			);
 			path = Fondamenti;
 			sourceTree = "<group>";
@@ -175,16 +175,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				86C37D492C08599B00367615 /* Score.swift in Sources */,
-				86F7D3D32BEFF0830063B9BD /* Esercizio2.swift in Sources */,
-				86C37D472C08598C00367615 /* Isomorfismi.swift in Sources */,
+				86F7D3D32BEFF0830063B9BD /* CongruencesSystem.swift in Sources */,
+				86C37D472C08598C00367615 /* Isomorphisms.swift in Sources */,
 				86A10BFC2C0A74B80096C78F /* Albero.swift in Sources */,
 				86F7D3C52BEFED870063B9BD /* ContentView.swift in Sources */,
 				86F7D3C32BEFED870063B9BD /* FondamentiApp.swift in Sources */,
 				86A10BFA2C0A71830096C78F /* HamiltonianCycle.swift in Sources */,
-				860030342BF0D9FF0022E394 /* CalcolaModulo.swift in Sources */,
-				86A10C002C0A74C70096C78F /* Sconnesso.swift in Sources */,
-				86A10BFE2C0A74C10096C78F /* DueConnesso.swift in Sources */,
-				86F7D3D52BEFF0990063B9BD /* Esercizio3.swift in Sources */,
+				860030342BF0D9FF0022E394 /* ModTool.swift in Sources */,
+				86A10C002C0A74C70096C78F /* Disconnected.swift in Sources */,
+				86A10BFE2C0A74C10096C78F /* TwoConnected.swift in Sources */,
+				86F7D3D52BEFF0990063B9BD /* RSACongruence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,9 @@
 //
 import SwiftUI
 
+/**
+ * View for calculating and analyzing graph scores.
+ */
 struct Score: View {
     @State private var textField1: String = ""
     @State private var textField2: String = ""
@@ -18,7 +21,7 @@ struct Score: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Group{
+            Group {
                 Text("Primo score:")
                     .font(.headline)
 
@@ -26,7 +29,7 @@ struct Score: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Group{
+            Group {
                 Text("Secondo score:")
                     .font(.headline)
                 
@@ -78,6 +81,14 @@ struct Score: View {
         }
     }
     
+    /**
+     * Verifies obstructions in a degree sequence.
+     *
+     * - Parameters:
+     *   - vettore: The degree sequence as an array of integers.
+     *   - nomeVettore: The name of the degree sequence.
+     * - Returns: A string indicating whether the sequence passes the obstruction checks.
+     */
     func verificaOstruzioni(vettore: [Int], nomeVettore: String) -> String {
         let n = vettore.count
         let maxVal = vettore.max()!
@@ -109,6 +120,12 @@ struct Score: View {
         return "\(nomeVettore) SI"
     }
 
+    /**
+     * Applies the degree sequence theorem to a vector.
+     *
+     * - Parameter vettore: The degree sequence as an array of integers.
+     * - Returns: A string showing the steps of applying the theorem.
+     */
     func teoremaDelloScore(vettore: inout [Int]) -> String {
         var result = "TEOREMA DELLO SCORE\n"
         result += "\(vettore)\n"
@@ -125,10 +142,22 @@ struct Score: View {
         return result
     }
 
+    /**
+     * Checks if a graph is disconnected.
+     *
+     * - Parameter graph: The adjacency list of the graph.
+     * - Returns: A boolean indicating if the graph is disconnected.
+     */
     func isDisconnected(graph: [[Int]]) -> Bool {
         return !isConnected(graph: graph)
     }
 
+    /**
+     * Checks if a graph is connected.
+     *
+     * - Parameter graph: The adjacency list of the graph.
+     * - Returns: A boolean indicating if the graph is connected.
+     */
     func isConnected(graph: [[Int]]) -> Bool {
         var visited = [Bool](repeating: false, count: graph.count)
         var queue = [0]
@@ -145,19 +174,35 @@ struct Score: View {
         return visited.allSatisfy { $0 }
     }
     
+    /**
+     * Converts a comma-separated string to an array of integers.
+     *
+     * - Parameter input: The input string.
+     * - Returns: An array of integers, or nil if conversion fails.
+     */
     func stringToIntArray(_ input: String) -> [Int]? {
         let components = input.split(separator: ",")
         let intArray = components.compactMap { Int($0) }
         
-        // Verifica se tutti i componenti sono stati convertiti con successo
+        // Verifies if all components were successfully converted
         if intArray.count == components.count {
             return intArray
         } else {
-            // Se c'è qualche componente che non è un numero intero, restituisce nil
             return nil
         }
     }
 
+    /**
+     * Finds and describes a graph given its degree sequence and properties.
+     *
+     * - Parameters:
+     *   - vettore: The degree sequence.
+     *   - hamiltoniano: Whether the graph should be Hamiltonian.
+     *   - sconnesso: Whether the graph should be disconnected.
+     *   - dueConnesso: Whether the graph should be 2-connected.
+     *   - albero: Whether the graph should be a tree.
+     * - Returns: A string describing the graph and its properties.
+     */
     func trovaGrafo(vettore: [Int], hamiltoniano: Bool, sconnesso: Bool, dueConnesso: Bool, albero: Bool) -> String {
         let n = vettore.count
         var graph = [[Int]](repeating: [Int](), count: n)
@@ -188,6 +233,18 @@ struct Score: View {
         return result
     }
     
+    /**
+     * Main function for calculating graph properties based on degree sequences.
+     *
+     * - Parameters:
+     *   - d1: The first degree sequence as a string.
+     *   - d2: The second degree sequence as a string.
+     *   - hamiltoniano: Whether to check for Hamiltonian property.
+     *   - sconnesso: Whether to check for disconnected property.
+     *   - dueConnesso: Whether to check for 2-connected property.
+     *   - albero: Whether to check for tree property.
+     * - Returns: A string summarizing the calculation results.
+     */
     func main(d1: String, d2: String, hamiltoniano: Bool, sconnesso: Bool, dueConnesso: Bool, albero: Bool) -> String {
         let vettore1 = d1.split(separator: ",").compactMap { Int($0) }
         let vettore2 = d2.split(separator: ",").compactMap { Int($0) }
@@ -215,12 +272,18 @@ struct Score: View {
         return output.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    /**
+     * Calculates the results and shows the modal view.
+     */
     private func calculate() {
         calculationResult = main(d1: textField1, d2: textField2, hamiltoniano: isHamiltonian, sconnesso: isDisconnected, dueConnesso: isDueConnesso, albero: isAlbero)
         showModal = true
     }
 }
 
+/**
+ * Modal view to display the calculation result.
+ */
 struct ModalView4: View {
     @Binding var showModal: Bool
     @Binding var result: String
@@ -258,6 +321,9 @@ struct ModalView4: View {
     }
 }
 
+/**
+ * Preview provider for the Score view.
+ */
 #Preview {
     Score()
 }

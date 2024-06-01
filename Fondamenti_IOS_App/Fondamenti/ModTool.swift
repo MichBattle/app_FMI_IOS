@@ -1,12 +1,15 @@
 //
-//  Esercizio2.swift
+//  ModTool.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 11/05/24.
 //
 import SwiftUI
 
-struct CalcolaModulo: View {
+/**
+ * View for the ModTool, which calculates the modulo of a given number.
+ */
+struct ModTool: View {
     @State private var number = ""
     @State private var mod = ""
     @State private var result = ""
@@ -24,15 +27,15 @@ struct CalcolaModulo: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Text(result)
-                    .padding(.top, 8) // Spazio tra i TextField e il risultato
+                    .padding(.top, 8) // Space between TextFields and the result
             }
             
-            Spacer() // Spacer per spingere il bottone in basso
+            Spacer() // Spacer to push the button down
             
             HStack {
                 Spacer()
                 Button(action: {
-                    // Calcola il modulo e aggiorna il risultato
+                    // Calculate the modulo and update the result
                     let num = evaluateExpression(expression: number)
                     let modValue = Int(mod) ?? 1
                     let modulo = num % modValue
@@ -53,12 +56,17 @@ struct CalcolaModulo: View {
         .navigationTitle("Calcola Modulo")
     }
     
-    // Funzione per valutare l'espressione matematica
+    /**
+     * Evaluates a mathematical expression.
+     *
+     * - Parameter expression: The string containing the mathematical expression to evaluate.
+     * - Returns: The integer result of the evaluated expression.
+     */
     private func evaluateExpression(expression: String) -> Int {
-        var cleanedExpression = expression.replacingOccurrences(of: "^", with: "**") // Aggiorna l'operatore di potenza
-        cleanedExpression = cleanedExpression.replacingOccurrences(of: " ", with: "") // Rimuovi gli spazi
+        var cleanedExpression = expression.replacingOccurrences(of: "^", with: "**") // Update the power operator
+        cleanedExpression = cleanedExpression.replacingOccurrences(of: " ", with: "") // Remove spaces
         
-        // Usa il NSExpression per valutare l'espressione
+        // Use NSExpression to evaluate the expression
         let expressionToEvaluate = NSExpression(format: cleanedExpression)
         guard let evaluatedValue = expressionToEvaluate.expressionValue(with: nil, context: nil) as? Int else {
             return 0
@@ -67,8 +75,11 @@ struct CalcolaModulo: View {
     }
 }
 
-struct CalcolaModuloView_Previews: PreviewProvider {
+/**
+ * Preview provider for the ModTool view.
+ */
+struct ModToolView_Previews: PreviewProvider {
     static var previews: some View {
-        CalcolaModulo()
+        ModTool()
     }
 }

@@ -6,6 +6,12 @@
 //
 import Foundation
 
+/**
+ * Checks if a degree sequence represents a tree.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A boolean indicating if the degree sequence represents a tree.
+ */
 func is_tree(degree_sequence: [Int]) -> Bool {
     var degree_sequence = degree_sequence
     let n = degree_sequence.count

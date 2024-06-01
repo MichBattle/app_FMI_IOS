@@ -1,5 +1,5 @@
 //
-//  Esercizio3.swift
+//  RSACongruence.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 11/05/24.
@@ -7,7 +7,12 @@
 import SwiftUI
 import Foundation
 
-//scompone un numero in fattori primi
+/**
+ * Decomposes a number into its prime factors.
+ *
+ * - Parameter n: The number to decompose.
+ * - Returns: An array of prime factors of the number.
+ */
 func fattoriPrimi(_ n: Int) -> [Int] {
     var n = n
     var i = 2
@@ -26,7 +31,12 @@ func fattoriPrimi(_ n: Int) -> [Int] {
     return factors
 }
 
-//calcola phi di eulero di un numero
+/**
+ * Calculates the Euler's totient function (phi) of a number.
+ *
+ * - Parameter n: The number to calculate phi for.
+ * - Returns: The value of phi(n).
+ */
 func phiEulero(_ n: Int) -> Int {
     var n = n
     var result = n
@@ -46,8 +56,14 @@ func phiEulero(_ n: Int) -> Int {
     return result
 }
 
-//esegue l'algoritmo di euclide con sostituz a ritroso su due numeri
-//ritorna il numero per cui viene moltiplicata la potenza, stringa che contiene tutti i passaggi
+/**
+ * Performs the Euclidean algorithm with backward substitution on two numbers.
+ *
+ * - Parameters:
+ *   - a: The first integer.
+ *   - b: The second integer.
+ * - Returns: A tuple containing the multiplier for the power and a string with all steps.
+ */
 func euclideanAlgorithm2(_ a: Int, _ b: Int) -> (Int, String) {
     var a = a
     var b = b
@@ -56,39 +72,45 @@ func euclideanAlgorithm2(_ a: Int, _ b: Int) -> (Int, String) {
     let a0 = a, b0 = b
     var str = ""
     
-    // Aggiunta della condizione if per evitare il primo ciclo del while
+    // Initial step if b is less than or equal to a
     if b <= a {
         str += "\(a) = \(a / b)*\(b) + \(a % b)\n"
     }
     
     while b != 0 {
-        // Rimozione del comando print dal corpo del while
         let q = a / b
         (a, b) = (b, a % b)
         (x0, x1) = (x1, x0 - q * x1)
         (y0, y1) = (y1, y0 - q * y1)
         
-        // Aggiunta della stampa all'interno del while solo se b != 0
         if b != 0 {
             str += "\(a) = \(a / b)*\(b) + \(a % b)\n"
         }
     }
     str += "MCD = \(a) = \(x0)*\(a0) + \(y0)*\(b0)\n"
     var z = 0
-    if a0 != keep{ //prendo il valore che moltiplica number
+    if a0 != keep {
         z = x0
-    }else{
+    } else {
         z = y0
     }
     
-    while(z < 0){ //fiche z è negativa aggiunge phi(n)
+    while z < 0 {
         z += keep
     }
     
     return (z, str)
 }
 
-//calcola l'orbita
+/**
+ * Calculates the modular exponentiation.
+ *
+ * - Parameters:
+ *   - k: The exponent.
+ *   - residue: The base.
+ *   - modulus: The modulus.
+ * - Returns: A string showing the step-by-step calculation of the modular exponentiation.
+ */
 func calculateModularExponentiation(_ k: Int, residue: Int, modulus: Int) -> String {
     var result = 1
     var str = ""
@@ -99,7 +121,15 @@ func calculateModularExponentiation(_ k: Int, residue: Int, modulus: Int) -> Str
     return str
 }
 
-//calcola le soluz min > 0 e max < 0
+/**
+ * Calculates the minimum positive and maximum negative solutions of a congruence.
+ *
+ * - Parameters:
+ *   - k: The exponent.
+ *   - residue: The base.
+ *   - modulus: The modulus.
+ * - Returns: A string showing the minimum positive and maximum negative solutions.
+ */
 func congruenceSolver(_ k: Int, residue: Int, modulus: Int) -> String {
     var solutions = [Int]()
     for x in 0..<modulus {
@@ -119,7 +149,15 @@ func congruenceSolver(_ k: Int, residue: Int, modulus: Int) -> String {
     return "Minima soluzione positiva: \(minPositiveSolution)\nMassima soluzione negativa: \(maxNegativeSolution)\n"
 }
 
-//esegue tutto
+/**
+ * Executes the entire RSA congruence process.
+ *
+ * - Parameters:
+ *   - potenza: The exponent.
+ *   - number: The base.
+ *   - mod: The modulus.
+ * - Returns: A string showing the detailed steps and results of the process.
+ */
 func menu2(potenza: Int, number: Int, mod: Int) -> String {
     var result = ""
     
@@ -147,7 +185,9 @@ func menu2(potenza: Int, number: Int, mod: Int) -> String {
     return result
 }
 
-// Vista modale per visualizzare i contenuti dei campi di testo
+/**
+ * Modal view to display the content of the text fields.
+ */
 struct ModalView2: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -176,7 +216,10 @@ struct ModalView2: View {
     }
 }
 
-struct Esercizio3: View {
+/**
+ * Main view for the RSA Congruence section.
+ */
+struct RSACongruence: View {
     @State private var potenza = ""
     @State private var number = ""
     @State private var mod = ""
@@ -198,7 +241,7 @@ struct Esercizio3: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Spacer() // Spacer per spingere il bottone in basso
+            Spacer() // Spacer to push the button down
             
             HStack {
                 Spacer()
@@ -218,14 +261,17 @@ struct Esercizio3: View {
         .padding()
         .navigationTitle("RSA")
         .sheet(isPresented: $showModal) {
-            // Passa i valori dei campi di testo alla vista modale
+            // Pass the values from the text fields to the modal view
             ModalView2(potenza: Int(potenza) ?? 0, mod: Int(mod) ?? 0, number: Int(number) ?? 0)
         }
     }
 }
 
-struct Esercizio3View_Previews: PreviewProvider {
+/**
+ * Preview provider for "RSACongruence".
+ */
+struct RSACongruenceView_Previews: PreviewProvider {
     static var previews: some View {
-        Esercizio3()
+        RSACongruence()
     }
 }

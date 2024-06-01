@@ -1,30 +1,32 @@
 //
-//  Esercizio2.swift
+//  Isomorphisms.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 31/05/24.
 //
 import SwiftUI
 
-struct Isomorfismi: View {
+/**
+ * View for checking isomorphisms between multiple graphs.
+ */
+struct Isomorphisms: View {
     @State private var graph1: String = ""
     @State private var graph2: String = ""
     @State private var graph3: String = ""
     @State private var showModal: Bool = false
     @State private var resultString: String = ""
     
-    
     var body: some View {
         VStack(alignment: .leading) {
-            Group{
-                    Text("Primo grafo:")
-                        .font(.headline)
-                    
-                    TextField("g1: x1-x2,x2-x3,...", text: $graph1)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+            Group {
+                Text("Primo grafo:")
+                    .font(.headline)
+                
+                TextField("g1: x1-x2,x2-x3,...", text: $graph1)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Group{
+            Group {
                 Text("Secondo grafo:")
                     .font(.headline)
                 
@@ -32,7 +34,7 @@ struct Isomorfismi: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Group{
+            Group {
                 Text("Terzo grafo:")
                     .font(.headline)
                 
@@ -40,12 +42,12 @@ struct Isomorfismi: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Spacer() // Spacer per spingere il bottone in basso
+            Spacer() // Spacer to push the button down
             
             HStack {
                 Spacer()
                 Button(action: {
-                    // Avvia la vista modale passando i valori dei campi di testo
+                    // Start the modal view passing the values of the text fields
                     resultString = performGraphChecks(graph1: graph1, graph2: graph2, graph3: graph3)
                     showModal = true
                 }) {
@@ -62,11 +64,20 @@ struct Isomorfismi: View {
         .padding()
         .navigationTitle("Isomorfismi")
         .sheet(isPresented: $showModal) {
-            // Passa i valori dei campi di testo alla vista modale
+            // Pass the values of the text fields to the modal view
             ModalView(resultString: $resultString, showModal: $showModal)
         }
     }
     
+    /**
+     * Perform checks between the given graphs.
+     *
+     * - Parameters:
+     *   - graph1: The first graph as a string.
+     *   - graph2: The second graph as a string.
+     *   - graph3: The third graph as a string.
+     * - Returns: A string describing the results of the checks.
+     */
     func performGraphChecks(graph1: String, graph2: String, graph3: String) -> String {
         var result = ""
         let graphs = [graph1, graph2, graph3].filter { !$0.isEmpty }
@@ -74,7 +85,7 @@ struct Isomorfismi: View {
         let graphPairs = [(0, 1), (1, 2), (0, 2)].filter { $0.0 < graphs.count && $0.1 < graphs.count }
         
         for (i, j) in graphPairs {
-            result += "Controlli tra grafo \(i+1) e grafo \(j+1):\n"
+            result += "Controlli tra grafo \(i + 1) e grafo \(j + 1):\n"
             result += checkGraphPair(graph1: graphs[i], graph2: graphs[j])
             result += "\n"
         }
@@ -82,6 +93,14 @@ struct Isomorfismi: View {
         return result
     }
     
+    /**
+     * Checks a pair of graphs for isomorphism.
+     *
+     * - Parameters:
+     *   - graph1: The first graph as a string.
+     *   - graph2: The second graph as a string.
+     * - Returns: A string describing the results of the checks.
+     */
     func checkGraphPair(graph1: String, graph2: String) -> String {
         let g1 = parseGraph(graphString: graph1)
         let g2 = parseGraph(graphString: graph2)
@@ -141,6 +160,12 @@ struct Isomorfismi: View {
         return result
     }
 
+    /**
+     * Parses a graph string into a dictionary representation.
+     *
+     * - Parameter graphString: The graph string.
+     * - Returns: A dictionary representing the graph.
+     */
     func parseGraph(graphString: String) -> [Int: [Int]] {
         var graph = [Int: [Int]]()
         let edges = graphString.split(separator: ",")
@@ -156,25 +181,43 @@ struct Isomorfismi: View {
         return graph
     }
     
+    /**
+     * Parses a graph string into a dictionary representation with string keys.
+     *
+     * - Parameter graphString: The graph string.
+     * - Returns: A dictionary representing the graph.
+     */
     func parseGraphToString(graphString: String) -> [String: [String]] {
-            var graph = [String: [String]]()
-            let edges = graphString.split(separator: ",")
-            for edge in edges {
-                let vertices = edge.split(separator: "-")
-                if vertices.count == 2 {
-                    let v1 = String(vertices[0])
-                    let v2 = String(vertices[1])
-                    graph[v1, default: []].append(v2)
-                    graph[v2, default: []].append(v1)
-                }
+        var graph = [String: [String]]()
+        let edges = graphString.split(separator: ",")
+        for edge in edges {
+            let vertices = edge.split(separator: "-")
+            if vertices.count == 2 {
+                let v1 = String(vertices[0])
+                let v2 = String(vertices[1])
+                graph[v1, default: []].append(v2)
+                graph[v2, default: []].append(v1)
             }
-            return graph
         }
+        return graph
+    }
     
+    /**
+     * Calculates the score of a graph.
+     *
+     * - Parameter graph: The graph as a dictionary.
+     * - Returns: An array of integers representing the degree of each vertex.
+     */
     func graphScore(graph: [String: [String]]) -> [Int] {
         return graph.values.map { $0.count }.sorted()
     }
     
+    /**
+     * Checks if a graph is connected.
+     *
+     * - Parameter graph: The graph as a dictionary.
+     * - Returns: A boolean indicating if the graph is connected.
+     */
     func isConnected(graph: [String: [String]]) -> Bool {
         guard let start = graph.keys.first else { return true }
         var visited = Set<String>()
@@ -191,6 +234,12 @@ struct Isomorfismi: View {
         return visited.count == graph.count
     }
     
+    /**
+     * Checks if a graph is 2-connected.
+     *
+     * - Parameter graph: The graph as a dictionary.
+     * - Returns: A boolean indicating if the graph is 2-connected.
+     */
     func is2Connected(graph: [String: [String]]) -> Bool {
         let nodes = Array(graph.keys)
         for node in nodes {
@@ -206,15 +255,27 @@ struct Isomorfismi: View {
         return true
     }
     
+    /**
+     * Checks if a graph is Hamiltonian.
+     *
+     * - Parameter graph: The graph as a dictionary.
+     * - Returns: A boolean indicating if the graph is Hamiltonian.
+     */
     func isHamiltonian(graph: [String: [String]]) -> Bool {
         return graph.keys.count <= graph.values.flatMap { $0 }.count / 2
     }
     
+    /**
+     * Counts the number of degree three vertices in a graph.
+     *
+     * - Parameter graph: The graph as a dictionary.
+     * - Returns: An integer representing the number of degree three vertices.
+     */
     func countDegreeThreeVertices(graph: [String: [String]]) -> Int {
         var triangleCount = 0
         for (_, neighbors) in graph {
             for i in 0..<neighbors.count {
-                for j in i+1..<neighbors.count {
+                for j in i + 1..<neighbors.count {
                     if graph[neighbors[i]]?.contains(neighbors[j]) == true {
                         triangleCount += 1
                     }
@@ -224,6 +285,14 @@ struct Isomorfismi: View {
         return triangleCount / 3
     }
     
+    /**
+     * Checks the neighbors of the maximum degree vertex in two graphs.
+     *
+     * - Parameters:
+     *   - graph1: The first graph as a dictionary.
+     *   - graph2: The second graph as a dictionary.
+     * - Returns: A boolean indicating if the neighbors of the maximum degree vertex match.
+     */
     func maxDegreeVertexNeighborsCheck(graph1: [String: [String]], graph2: [String: [String]]) -> Bool {
         let maxDegree1 = graph1.values.map { $0.count }.max() ?? 0
         let maxDegree2 = graph2.values.map { $0.count }.max() ?? 0
@@ -239,6 +308,14 @@ struct Isomorfismi: View {
         return neighbors1 == neighbors2
     }
     
+    /**
+     * Defines a random isomorphism and verifies the edges.
+     *
+     * - Parameters:
+     *   - g1: The first graph as a dictionary.
+     *   - g2: The second graph as a dictionary.
+     * - Returns: A string describing the isomorphism and the edge mappings, or nil if the graphs are not isomorphic.
+     */
     func definisciIsomorfismoCasualeEVerificaArchi(g1: [Int: [Int]], g2: [Int: [Int]]) -> String? {
         let verticesG1 = Array(g1.keys)
         let verticesG2 = Array(g2.keys)
@@ -260,6 +337,16 @@ struct Isomorfismi: View {
         }
     }
         
+    /**
+     * Verifies the mapped edges and prints the results.
+     *
+     * - Parameters:
+     *   - g1: The first graph as a dictionary.
+     *   - g2: The second graph as a dictionary.
+     *   - mapping: The mapping of vertices between the two graphs.
+     *   - edgeMapping: A string to store the edge mappings.
+     * - Returns: A boolean indicating if all mapped edges are present in the other graph.
+     */
     func verificaArchiMappatiEStampa(g1: [Int: [Int]], g2: [Int: [Int]], mapping: [Int: Int], edgeMapping: inout String) -> Bool {
         for (source, targets) in g1 {
             for target in targets {
@@ -277,6 +364,9 @@ struct Isomorfismi: View {
     }
 }
 
+/**
+ * Modal view to display the result string.
+ */
 struct ModalView: View {
     @Binding var resultString: String
     @Binding var showModal: Bool
@@ -305,6 +395,9 @@ struct ModalView: View {
     }
 }
 
+/**
+ * Preview provider for the Isomorphisms view.
+ */
 #Preview {
-    Isomorfismi()
+    Isomorphisms()
 }

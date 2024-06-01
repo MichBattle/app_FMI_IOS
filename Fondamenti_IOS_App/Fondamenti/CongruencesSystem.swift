@@ -1,5 +1,5 @@
 //
-//  Esercizio2.swift
+//  CongruencesSystem.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 11/05/24.
@@ -7,7 +7,14 @@
 import SwiftUI
 import Foundation
 
-//Calcola MCD con sostituz a ritroso
+/**
+ * Calculates the GCD using the Euclidean algorithm with backward substitution.
+ *
+ * - Parameters:
+ *   - a: The first integer.
+ *   - b: The second integer.
+ * - Returns: A string describing the steps to calculate the GCD.
+ */
 func euclideanAlgorithm(_ a: Int, _ b: Int) -> String {
     var (x0, x1, y0, y1) = (1, 0, 0, 1)
     let (a0, b0) = (a, b)
@@ -24,7 +31,16 @@ func euclideanAlgorithm(_ a: Int, _ b: Int) -> String {
     return result
 }
 
-//Risolve l'esercizio, calcola soluz particolare e completa
+/**
+ * Solves the given system of congruences.
+ *
+ * - Parameters:
+ *   - a: The first number.
+ *   - k: The modulus for the first congruence.
+ *   - b: The second number.
+ *   - j: The modulus for the second congruence.
+ * - Returns: A string describing the solution to the system of congruences.
+ */
 func solveCongruences(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
     let s = abs(a - b)
     
@@ -50,7 +66,14 @@ func solveCongruences(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
     return result
 }
 
-//ritorna mcd e i 2 valori per cui vengono moltiplicati k e j
+/**
+ * Returns the GCD and the two coefficients for the linear combination.
+ *
+ * - Parameters:
+ *   - a: The first integer.
+ *   - b: The second integer.
+ * - Returns: A tuple containing the GCD and the coefficients.
+ */
 func euclide(_ a: Int, _ b: Int) -> (Int, Int, Int) {
     var (x0, x1, y0, y1) = (1, 0, 0, 1)
     let (_, _) = (a, b)
@@ -64,7 +87,14 @@ func euclide(_ a: Int, _ b: Int) -> (Int, Int, Int) {
     return (a, x0, y0)
 }
 
-//calcola mcd normalmente
+/**
+ * Calculates the GCD normally.
+ *
+ * - Parameters:
+ *   - a: The first integer.
+ *   - b: The second integer.
+ * - Returns: The GCD of the two integers.
+ */
 func mcd(_ a: Int, _ b: Int) -> Int {
     var (a, b) = (a, b)
     while b != 0 {
@@ -73,12 +103,28 @@ func mcd(_ a: Int, _ b: Int) -> Int {
     return a
 }
 
-//calcola mcm
+/**
+ * Calculates the LCM.
+ *
+ * - Parameters:
+ *   - a: The first integer.
+ *   - b: The second integer.
+ * - Returns: The LCM of the two integers.
+ */
 func mcm(_ a: Int, _ b: Int) -> Int {
     return (a * b) / mcd(a, b)
 }
 
-//esegue l'esercizio
+/**
+ * Executes the exercise.
+ *
+ * - Parameters:
+ *   - xNumber: The first number.
+ *   - xMod: The modulus for the first number.
+ *   - yNumber: The second number.
+ *   - yMod: The modulus for the second number.
+ * - Returns: A Text view with the result of the calculations.
+ */
 func menu(xNumber: Int, xMod: Int, yNumber: Int, yMod: Int) -> Text {
     let k = xMod
     let j = yMod
@@ -102,7 +148,9 @@ func menu(xNumber: Int, xMod: Int, yNumber: Int, yMod: Int) -> Text {
     return Text(result)
 }
 
-// Vista modale per visualizzare i contenuti dei campi di testo
+/**
+ * Modal view for displaying the content of the text fields.
+ */
 struct ModalView6: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -118,7 +166,7 @@ struct ModalView6: View {
             Spacer()
             
             Button(action: {
-                // Chiude la vista modale
+                // Closes the modal view
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Indietro")
@@ -132,7 +180,10 @@ struct ModalView6: View {
     }
 }
 
-struct Esercizio2: View {
+/**
+ * Main view for the "CongruencesSystem" section.
+ */
+struct CongruencesSystem: View {
     @State private var xNumber = ""
     @State private var xMod = ""
     @State private var yNumber = ""
@@ -163,7 +214,7 @@ struct Esercizio2: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Spacer() // Spacer per spingere il bottone in basso
+            Spacer() // Spacer to push the button down
             
             HStack {
                 Spacer()
@@ -183,14 +234,17 @@ struct Esercizio2: View {
         .padding()
         .navigationTitle("Sistema")
         .sheet(isPresented: $showModal) {
-            // Passa i valori dei campi di testo alla vista modale
+            // Pass the values from the text fields to the modal view
             ModalView6(xNumber: Int(xNumber) ?? 0, xMod: Int(xMod) ?? 0, yNumber: Int(yNumber) ?? 0, yMod: Int(yMod) ?? 0)
         }
     }
 }
 
-struct Esercizio2View_Previews: PreviewProvider {
+/**
+ * Preview provider for "CongruencesSystem".
+ */
+struct CongruencesSystemView_Previews: PreviewProvider {
     static var previews: some View {
-        Esercizio2()
+        CongruencesSystem()
     }
 }

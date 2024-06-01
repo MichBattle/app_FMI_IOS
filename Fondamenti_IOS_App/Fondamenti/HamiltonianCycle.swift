@@ -1,11 +1,17 @@
 //
-//  Albero.swift
+//  HamiltonianCycle.swift
 //  Fondamenti
 //
 //  Created by Michele Calliari on 31/05/24.
 //
 import Foundation
 
+/**
+ * Checks if a degree sequence is valid.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A boolean indicating if the degree sequence is valid.
+ */
 func is_valid_degree_sequence(_ degree_sequence: [Int]) -> Bool {
     let degree_sequence = degree_sequence.sorted(by: >)
     let n = degree_sequence.count
@@ -20,6 +26,12 @@ func is_valid_degree_sequence(_ degree_sequence: [Int]) -> Bool {
     return true
 }
 
+/**
+ * Constructs a graph using the Havel-Hakimi algorithm from a degree sequence.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A 2D array representing the adjacency list of the graph, or nil if construction fails.
+ */
 func havel_hakimi_construction(_ degree_sequence: [Int]) -> [[Int]]? {
     let degree_sequence = degree_sequence.sorted(by: >)
     let n = degree_sequence.count
@@ -54,11 +66,28 @@ func havel_hakimi_construction(_ degree_sequence: [Int]) -> [[Int]]? {
     return graph
 }
 
+/**
+ * Checks if the given path forms a Hamiltonian cycle in the graph.
+ *
+ * - Parameters:
+ *   - graph: The adjacency list of the graph.
+ *   - path: The path to check.
+ * - Returns: A boolean indicating if the path forms a Hamiltonian cycle.
+ */
 func is_hamiltonian_cycle(graph: [[Int]], path: [Int]) -> Bool {
     let n = graph.count
     return path.count == n && graph[path[0]].contains(path[n - 1])
 }
 
+/**
+ * Utility function for finding a Hamiltonian cycle.
+ *
+ * - Parameters:
+ *   - graph: The adjacency list of the graph.
+ *   - path: The current path being explored.
+ *   - position: The current position in the path.
+ * - Returns: A boolean indicating if a Hamiltonian cycle is found.
+ */
 func hamiltonian_cycle_util(graph: [[Int]], path: inout [Int], position: Int) -> Bool {
     let n = graph.count
     if position == n {
@@ -78,10 +107,26 @@ func hamiltonian_cycle_util(graph: [[Int]], path: inout [Int], position: Int) ->
     return false
 }
 
+/**
+ * Checks if it is safe to add a vertex to the Hamiltonian path.
+ *
+ * - Parameters:
+ *   - v: The vertex to add.
+ *   - graph: The adjacency list of the graph.
+ *   - path: The current path.
+ *   - position: The current position in the path.
+ * - Returns: A boolean indicating if it is safe to add the vertex.
+ */
 func is_safe(v: Int, graph: [[Int]], path: [Int], position: Int) -> Bool {
     return graph[path[position - 1]].contains(v) && !path.contains(v)
 }
 
+/**
+ * Finds a Hamiltonian cycle in the graph.
+ *
+ * - Parameter graph: The adjacency list of the graph.
+ * - Returns: An array representing the Hamiltonian cycle, or nil if no cycle is found.
+ */
 func hamiltonian_cycle(graph: [[Int]]) -> [Int]? {
     let n = graph.count
     var path = [Int](repeating: -1, count: n)
@@ -93,6 +138,12 @@ func hamiltonian_cycle(graph: [[Int]]) -> [Int]? {
     return path
 }
 
+/**
+ * Checks if a degree sequence contains a Hamiltonian cycle.
+ *
+ * - Parameter degree_sequence: The degree sequence as an array of integers.
+ * - Returns: A boolean indicating if the graph contains a Hamiltonian cycle.
+ */
 func contains_hamiltonian_cycle(degree_sequence: [Int]) -> Bool {
     if !is_valid_degree_sequence(degree_sequence) {
         return false
