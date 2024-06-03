@@ -9,6 +9,7 @@
 - **Isomorphisms**: Verifies graph isomorphisms with obstruction checks and bijection mapping.
 - **Score**: Analyzes graph scores and verifies properties such as Hamiltonian, 2-connected, disconnected, and tree.
 - **Tool Modulo**: Calculates the modulus of a given coefficient, even if expressed as a power or multiplication.
+- **Teoremi**: Displays a list of important theorems
 
 ## Installation Instructions
 
