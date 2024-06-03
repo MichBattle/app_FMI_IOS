@@ -1,3 +1,4 @@
+
 # Fondamenti - iOS Application
 
 **Fondamenti** is an iOS application designed to assist users in completing FMI exercises. The application features several buttons, each corresponding to a specific functionality.
@@ -48,6 +49,21 @@
 - **Process**: 
   - Computes the modulus of the given coefficient, which can be an expression (e.g., power or multiplication).
 - **Output**: Displays the result in the form `modulo * x + result`.
+
+### 6. Teoremi
+- **Description**: Shows a list of theorems.
+- **Process**: Displays the following list of theorems:
+  - Buon ordinamento e seconda forma induzione
+  - Esistenza e unicità divisione euclidea
+  - Unicità numero base arbitraria
+  - Esistenza e unicità MCM, mcd
+  - Teorema fondamentale dell'aritmetica
+  - Teorema cinese del resto
+  - Teorema di Fermat-Eulero e RSA
+  - Teoremi congiungibilità grafi
+  - Relazione grafi finiti e lemma strette di mano
+  - Teorema caratterizzazione alberi finiti
+  - Teorema esistenza alberi copertura
 
 ## Installation Instructions
 
