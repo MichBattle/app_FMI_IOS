@@ -164,14 +164,14 @@ func menu2(potenza: Int, number: Int, mod: Int) -> String {
     result += "Scomposizione in fattori primi (1):\n"
     result += "\(number) = \(fattoriPrimi(number))\n"
     result += "\(mod) = \(fattoriPrimi(mod))\n\n"
-
+    
     let phi = phiEulero(mod)
     result += "Scomposizione in fattori primi (2):\n"
     result += "\(potenza) = \(fattoriPrimi(potenza))\n"
     result += "phi(\(mod)) = \(phi) = \(fattoriPrimi(phi))\n\n"
     
     let (f, ff) = euclideanAlgorithm2(potenza, phi)
-
+    
     result += "MCD con sostituz a ritroso su \(potenza) e phi(\(mod)):\n"
     result += "\(ff)\n"
     

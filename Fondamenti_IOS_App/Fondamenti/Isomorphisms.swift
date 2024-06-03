@@ -152,14 +152,14 @@ struct Isomorphisms: View {
             } else {
                 result += "I grafi non sono isomorfi."
             }
-        
+            
         } else {
             result += "Controllo 6 non verificato\n"
         }
         
         return result
     }
-
+    
     /**
      * Parses a graph string into a dictionary representation.
      *
@@ -336,7 +336,7 @@ struct Isomorphisms: View {
             }
         }
     }
-        
+    
     /**
      * Verifies the mapped edges and prints the results.
      *

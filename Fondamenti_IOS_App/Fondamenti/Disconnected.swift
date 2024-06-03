@@ -69,7 +69,7 @@ func is_connected_graph(graph: [[Int]]) -> Bool {
     var stack = [0]
     visited[0] = true
     var count = 1
-
+    
     while !stack.isEmpty {
         let node = stack.removeLast()
         for neighbor in graph[node] {
@@ -80,7 +80,7 @@ func is_connected_graph(graph: [[Int]]) -> Bool {
             }
         }
     }
-
+    
     return count == n
 }
 
@@ -95,7 +95,7 @@ func build_graph_from_degrees(degree_sequence: [Int]) -> [[Int]]? {
     var graph = [[Int]](repeating: [Int](), count: n)
     var degree_sequence = degree_sequence.enumerated().map { ($0.element, $0.offset) }
     degree_sequence.sort { $0.0 > $1.0 }
-
+    
     while !degree_sequence.isEmpty && degree_sequence[0].0 > 0 {
         let (d, node) = degree_sequence.removeFirst()
         if d > degree_sequence.count {
@@ -109,7 +109,7 @@ func build_graph_from_degrees(degree_sequence: [Int]) -> [[Int]]? {
         }
         degree_sequence.sort { $0.0 > $1.0 }
     }
-
+    
     return graph
 }
 
@@ -123,18 +123,18 @@ func is_graph_disconnected(score: [Int]) -> Bool {
     if score.allSatisfy({ $0 == 0 }) {
         return true
     }
-
+    
     if score.contains(where: { $0 >= score.count }) {
         return true
     }
-
+    
     if !is_valid_degree_sequence(degree_sequence: score) {
         return true
     }
-
+    
     guard let graph = build_graph_from_degrees(degree_sequence: score) else {
         return true
     }
-
+    
     return !is_connected_graph(graph: graph)
 }

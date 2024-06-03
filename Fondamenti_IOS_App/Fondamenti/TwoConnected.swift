@@ -69,7 +69,7 @@ func is_connected_graph2(graph: [[Int]]) -> Bool {
     var stack = [0]
     visited[0] = true
     var count = 1
-
+    
     while !stack.isEmpty {
         let node = stack.removeLast()
         for neighbor in graph[node] {
@@ -80,7 +80,7 @@ func is_connected_graph2(graph: [[Int]]) -> Bool {
             }
         }
     }
-
+    
     return count == n
 }
 
@@ -95,7 +95,7 @@ func build_graph_from_degrees2(degree_sequence: [Int]) -> [[Int]]? {
     var graph = [[Int]](repeating: [Int](), count: n)
     var degree_sequence = degree_sequence.enumerated().map { ($0.element, $0.offset) }
     degree_sequence.sort { $0.0 > $1.0 }
-
+    
     while !degree_sequence.isEmpty && degree_sequence[0].0 > 0 {
         let (d, node) = degree_sequence.removeFirst()
         if d > degree_sequence.count {
@@ -109,7 +109,7 @@ func build_graph_from_degrees2(degree_sequence: [Int]) -> [[Int]]? {
         }
         degree_sequence.sort { $0.0 > $1.0 }
     }
-
+    
     return graph
 }
 
@@ -126,7 +126,7 @@ func find_cut_vertices(graph: [[Int]]) -> [Int] {
     var parent = [Int](repeating: -1, count: n)
     var ap = [Bool](repeating: false, count: n)
     var time = 0
-
+    
     /**
      * Depth-First Search (DFS) utility for finding cut vertices.
      *
@@ -137,7 +137,7 @@ func find_cut_vertices(graph: [[Int]]) -> [Int] {
         disc[u] = time
         low[u] = time
         time += 1
-
+        
         for v in graph[u] {
             if disc[v] == -1 {
                 parent[v] = u
@@ -155,13 +155,13 @@ func find_cut_vertices(graph: [[Int]]) -> [Int] {
             }
         }
     }
-
+    
     for i in 0..<n {
         if disc[i] == -1 {
             dfs(u: i)
         }
     }
-
+    
     return ap.enumerated().compactMap { $1 ? $0 : nil }
 }
 
@@ -185,7 +185,7 @@ func is_2_connected(degree_sequence: [Int]) -> Bool {
     if !is_valid_degree_sequence2(degree_sequence: degree_sequence) {
         return false
     }
-
+    
     guard let graph = build_graph_from_degrees2(degree_sequence: degree_sequence) else {
         return false
     }

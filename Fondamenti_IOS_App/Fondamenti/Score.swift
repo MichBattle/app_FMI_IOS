@@ -18,13 +18,13 @@ struct Score: View {
     @State private var isAlbero: Bool = false
     @State private var showModal: Bool = false
     @State private var calculationResult: String = ""
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Group {
                 Text("Primo score:")
                     .font(.headline)
-
+                
                 TextField("d1: x1,x2,...xn", text: $textField1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
@@ -36,12 +36,12 @@ struct Score: View {
                 TextField("d2: x1,x2,...xn", text: $textField2)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
-
+            
             Toggle(isOn: $isHamiltonian) {
                 Text("Hamiltoniano")
             }
             .padding(.bottom, 10)
-
+            
             Toggle(isOn: $isDisconnected) {
                 Text("Sconnesso")
             }
@@ -56,9 +56,9 @@ struct Score: View {
                 Text("Albero")
             }
             .padding(.bottom, 10)
-
+            
             Spacer()
-
+            
             HStack {
                 Spacer()
                 Button(action: {
@@ -93,17 +93,17 @@ struct Score: View {
         let n = vettore.count
         let maxVal = vettore.max()!
         let minVal = vettore.min()!
-
+        
         if maxVal > n - 1 {
             return "\(nomeVettore) NO a causa dell'ostruzione 1"
         }
-
+        
         if maxVal == n - 1 {
             if minVal < vettore.filter({ $0 == maxVal }).count {
                 return "\(nomeVettore) NO a causa dell'ostruzione 2"
             }
         }
-
+        
         if n > 2 {
             let L = vettore.dropLast(2).filter { $0 >= 2 }.count
             let K = vettore.suffix(2).reduce(0, +) - n
@@ -111,15 +111,15 @@ struct Score: View {
                 return "\(nomeVettore) NO a causa dell'ostruzione 3"
             }
         }
-
+        
         let numDispari = vettore.filter { $0 % 2 != 0 }.count
         if numDispari % 2 != 0 {
             return "\(nomeVettore) NO a causa dell'ostruzione 4"
         }
-
+        
         return "\(nomeVettore) SI"
     }
-
+    
     /**
      * Applies the degree sequence theorem to a vector.
      *
@@ -134,14 +134,14 @@ struct Score: View {
             for i in 1...n {
                 vettore[vettore.count - i] -= 1
             }
-
+            
             result += "\(vettore)\n"
             vettore.sort()
             result += "vettore ordinato: \n\(vettore)\n"
         }
         return result
     }
-
+    
     /**
      * Checks if a graph is disconnected.
      *
@@ -151,7 +151,7 @@ struct Score: View {
     func isDisconnected(graph: [[Int]]) -> Bool {
         return !isConnected(graph: graph)
     }
-
+    
     /**
      * Checks if a graph is connected.
      *
@@ -191,7 +191,7 @@ struct Score: View {
             return nil
         }
     }
-
+    
     /**
      * Finds and describes a graph given its degree sequence and properties.
      *
@@ -206,7 +206,7 @@ struct Score: View {
     func trovaGrafo(vettore: [Int], hamiltoniano: Bool, sconnesso: Bool, dueConnesso: Bool, albero: Bool) -> String {
         let n = vettore.count
         var graph = [[Int]](repeating: [Int](), count: n)
-
+        
         for i in 0..<n {
             for j in i + 1..<n {
                 if vettore[i] + vettore[j] >= n {
@@ -215,22 +215,78 @@ struct Score: View {
                 }
             }
         }
-
+        
         var result = ""
+        
+        let disconnectionForced = forceDisconnection(vettore: vettore)
+        let connectionForced = forceConnection(vettore: vettore)
+        
+        if connectionForced{
+            result += "Forzatura alla connessione verificata\n"
+        }else{
+            result += "Forzatura alla connessione NON verificata\n"
+        }
+        
+        if disconnectionForced{
+            result += "Forzatura alla sconnessione verificata\n"
+        }else{
+            result += "Forzatura alla sconnessione NON verificata\n"
+        }
+        
         if sconnesso {
-            result += "Sconnesso " + (is_graph_disconnected(score: vettore) ? "SI" : "NO") + "\n"
+            if connectionForced {
+                result += "Sconnesso NO\n"
+            } else {
+                result += "Sconnesso " + (isDisconnected(graph: graph) ? "SI" : "NO") + "\n"
+            }
         }
+        
         if hamiltoniano {
-            result += "Hamiltoniano " + (contains_hamiltonian_cycle(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            if disconnectionForced {
+                result += "Hamiltoniano NO\n"
+            } else {
+                result += "Hamiltoniano " + (contains_hamiltonian_cycle(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            }
         }
+        
         if dueConnesso {
-            result += "2-Connesso " + (is_2_connected(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            if disconnectionForced {
+                result += "2-Connesso NO\n"
+            } else {
+                result += "2-Connesso " + (is_2_connected(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            }
         }
+        
         if albero {
             result += "Albero " + (is_tree(degree_sequence: vettore) ? "SI" : "NO") + "\n"
         }
         
         return result
+    }
+    
+    /**
+     * Forces a degree sequence to be disconnected.
+     *
+     * - Parameter vettore: The degree sequence.
+     * - Returns: A boolean indicating if the sequence can be forced to be disconnected.
+     */
+    func forceDisconnection(vettore: [Int]) -> Bool {
+        let sum = vettore.reduce(0, +)
+        let n = vettore.count
+        return (1.0 / 2.0) * Double(sum) < Double(n - 1)
+    }
+    
+    /**
+     * Forces a degree sequence to be connected.
+     *
+     * - Parameter vettore: The degree sequence.
+     * - Returns: A boolean indicating if the sequence can be forced to be connected.
+     */
+    func forceConnection(vettore: [Int]) -> Bool {
+        let n = vettore.count
+        let firstElement = vettore.first!
+        let lastElement = vettore.last!
+        return firstElement >= n - lastElement - 1
     }
     
     /**
@@ -250,12 +306,12 @@ struct Score: View {
         let vettore2 = d2.split(separator: ",").compactMap { Int($0) }
         
         var output = ""
-
+        
         let result1 = verificaOstruzioni(vettore: vettore1, nomeVettore: "d1")
         let result2 = verificaOstruzioni(vettore: vettore2, nomeVettore: "d2")
-
+        
         output += result1 + "\n" + result2 + "\n"
-
+        
         var vettoreSopravvissuto: [Int]
         if !result1.contains("NO") {
             vettoreSopravvissuto = vettore1
@@ -264,14 +320,14 @@ struct Score: View {
         } else {
             return output.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-
+        
         var vettoreSopravvissutoCopy = vettoreSopravvissuto
         output += teoremaDelloScore(vettore: &vettoreSopravvissutoCopy)
         output += trovaGrafo(vettore: vettoreSopravvissuto, hamiltoniano: hamiltoniano, sconnesso: sconnesso, dueConnesso: dueConnesso, albero: albero)
-
+        
         return output.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-
+    
     /**
      * Calculates the results and shows the modal view.
      */
@@ -287,21 +343,21 @@ struct Score: View {
 struct ModalView4: View {
     @Binding var showModal: Bool
     @Binding var result: String
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("")
                 .font(.largeTitle)
                 .padding(.bottom, 20)
-
+            
             Text(result)
                 .padding(.leading)
                 .padding(.top)
                 .padding(.trailing, 16)
                 .padding(.bottom, 16)
-
+            
             Spacer()
-
+            
             HStack {
                 Spacer()
                 Button(action: {
