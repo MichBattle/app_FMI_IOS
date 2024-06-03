@@ -11,9 +11,8 @@ import Foundation
  * View for the ModTool, which calculates the modulo of a given number.
  */
 struct ModTool: View {
-    @State private var number = ""
-    @State private var mod = ""
     @State private var result = ""
+    @ObservedObject var toolData: ToolData
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,14 +20,18 @@ struct ModTool: View {
                 Text("Modulo:")
                     .font(.headline)
                 
-                TextField("Numero", text: $number)
+                TextField("Numero", text: $toolData.number)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Mod", text: $mod)
+                TextField("Mod", text: $toolData.mod)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                Text(result)
-                    .padding(.top, 8) // Space between TextFields and the result
+                HStack {
+                    Spacer()
+                    Text(result)
+                        .padding(.top, 8) // Space between TextFields and the result
+                    Spacer()
+                }
             }
             
             Spacer() // Spacer to push the button down
@@ -37,11 +40,11 @@ struct ModTool: View {
                 Spacer()
                 Button(action: {
                     // Calculate the modulo and update the result
-                    let num = evaluateExpression(expression: number)
-                    let modValue = Int(mod) ?? 1
+                    let num = evaluateExpression(expression: toolData.number)
+                    let modValue = Int(toolData.mod) ?? 1
                     let modulo = num % modValue
                     let quoziente = num / modValue
-                    result = "\(number) mod \(mod) = \(modValue)*\(quoziente) + \(modulo)"
+                    result = "\(toolData.number) mod \(toolData.mod) = \(modValue)*\(quoziente) + \(modulo)"
                 }) {
                     Text("Calcola")
                         .padding()
@@ -81,6 +84,14 @@ struct ModTool: View {
  */
 struct ModToolView_Previews: PreviewProvider {
     static var previews: some View {
-        ModTool()
+        ModTool(toolData: ToolData())
     }
+}
+
+/**
+ * ToolData model to hold the state of the tool.
+ */
+class ToolData: ObservableObject {
+    @Published var number = ""
+    @Published var mod = ""
 }

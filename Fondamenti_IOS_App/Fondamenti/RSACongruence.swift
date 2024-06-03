@@ -1,9 +1,3 @@
-//
-//  RSACongruence.swift
-//  Fondamenti
-//
-//  Created by Michele Calliari on 11/05/24.
-//
 import SwiftUI
 import Foundation
 
@@ -220,9 +214,7 @@ struct ModalView2: View {
  * Main view for the RSA Congruence section.
  */
 struct RSACongruence: View {
-    @State private var potenza = ""
-    @State private var number = ""
-    @State private var mod = ""
+    @ObservedObject var rsaData: RSAData
     @State private var showModal = false
     
     var body: some View {
@@ -231,13 +223,13 @@ struct RSACongruence: View {
                 Text("Congruenza:")
                     .font(.headline)
                 
-                TextField("Potenza", text: $potenza)
+                TextField("Potenza", text: $rsaData.potenza)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Numero", text: $number)
+                TextField("Numero", text: $rsaData.number)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Mod", text: $mod)
+                TextField("Mod", text: $rsaData.mod)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -262,7 +254,7 @@ struct RSACongruence: View {
         .navigationTitle("RSA")
         .sheet(isPresented: $showModal) {
             // Pass the values from the text fields to the modal view
-            ModalView2(potenza: Int(potenza) ?? 0, mod: Int(mod) ?? 0, number: Int(number) ?? 0)
+            ModalView2(potenza: Int(rsaData.potenza) ?? 0, mod: Int(rsaData.mod) ?? 0, number: Int(rsaData.number) ?? 0)
         }
     }
 }
@@ -272,6 +264,12 @@ struct RSACongruence: View {
  */
 struct RSACongruenceView_Previews: PreviewProvider {
     static var previews: some View {
-        RSACongruence()
+        RSACongruence(rsaData: RSAData())
     }
+}
+
+class RSAData: ObservableObject {
+    @Published var potenza = ""
+    @Published var number = ""
+    @Published var mod = ""
 }

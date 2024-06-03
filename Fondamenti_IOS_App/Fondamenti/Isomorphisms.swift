@@ -10,9 +10,7 @@ import SwiftUI
  * View for checking isomorphisms between multiple graphs.
  */
 struct Isomorphisms: View {
-    @State private var graph1: String = ""
-    @State private var graph2: String = ""
-    @State private var graph3: String = ""
+    @ObservedObject var isoData: IsoData
     @State private var showModal: Bool = false
     @State private var resultString: String = ""
     
@@ -22,7 +20,7 @@ struct Isomorphisms: View {
                 Text("Primo grafo:")
                     .font(.headline)
                 
-                TextField("g1: x1-x2,x2-x3,...", text: $graph1)
+                TextField("g1: x1-x2,x2-x3,...", text: $isoData.graph1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -30,7 +28,7 @@ struct Isomorphisms: View {
                 Text("Secondo grafo:")
                     .font(.headline)
                 
-                TextField("g2: x1-x2,x2-x3,...", text: $graph2)
+                TextField("g2: x1-x2,x2-x3,...", text: $isoData.graph2)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -38,7 +36,7 @@ struct Isomorphisms: View {
                 Text("Terzo grafo:")
                     .font(.headline)
                 
-                TextField("g3: x1-x2,x2-x3,...", text: $graph3)
+                TextField("g3: x1-x2,x2-x3,...", text: $isoData.graph3)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -48,7 +46,7 @@ struct Isomorphisms: View {
                 Spacer()
                 Button(action: {
                     // Start the modal view passing the values of the text fields
-                    resultString = performGraphChecks(graph1: graph1, graph2: graph2, graph3: graph3)
+                    resultString = performGraphChecks(graph1: isoData.graph1, graph2: isoData.graph2, graph3: isoData.graph3)
                     showModal = true
                 }) {
                     Text("Calcola")
@@ -399,5 +397,14 @@ struct ModalView: View {
  * Preview provider for the Isomorphisms view.
  */
 #Preview {
-    Isomorphisms()
+    Isomorphisms(isoData: IsoData())
+}
+
+/**
+ * IsoData model to hold the state of the graphs.
+ */
+class IsoData: ObservableObject {
+    @Published var graph1: String = ""
+    @Published var graph2: String = ""
+    @Published var graph3: String = ""
 }

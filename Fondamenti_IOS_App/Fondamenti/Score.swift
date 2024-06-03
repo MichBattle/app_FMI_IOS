@@ -1,21 +1,10 @@
-//
-//  Score.swift
-//  Fondamenti
-//
-//  Created by Michele Calliari on 30/05/24.
-//
 import SwiftUI
 
 /**
  * View for calculating and analyzing graph scores.
  */
 struct Score: View {
-    @State private var textField1: String = ""
-    @State private var textField2: String = ""
-    @State private var isHamiltonian: Bool = false
-    @State private var isDisconnected: Bool = false
-    @State private var isDueConnesso: Bool = false
-    @State private var isAlbero: Bool = false
+    @ObservedObject var scoreData: ScoreData
     @State private var showModal: Bool = false
     @State private var calculationResult: String = ""
     
@@ -25,7 +14,7 @@ struct Score: View {
                 Text("Primo score:")
                     .font(.headline)
                 
-                TextField("d1: x1,x2,...xn", text: $textField1)
+                TextField("d1: x1,x2,...xn", text: $scoreData.textField1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -33,26 +22,26 @@ struct Score: View {
                 Text("Secondo score:")
                     .font(.headline)
                 
-                TextField("d2: x1,x2,...xn", text: $textField2)
+                TextField("d2: x1,x2,...xn", text: $scoreData.textField2)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Toggle(isOn: $isHamiltonian) {
+            Toggle(isOn: $scoreData.isHamiltonian) {
                 Text("Hamiltoniano")
             }
             .padding(.bottom, 10)
             
-            Toggle(isOn: $isDisconnected) {
+            Toggle(isOn: $scoreData.isDisconnected) {
                 Text("Sconnesso")
             }
             .padding(.bottom, 10)
             
-            Toggle(isOn: $isDueConnesso) {
+            Toggle(isOn: $scoreData.isDueConnesso) {
                 Text("2-Connesso")
             }
             .padding(.bottom, 10)
             
-            Toggle(isOn: $isAlbero) {
+            Toggle(isOn: $scoreData.isAlbero) {
                 Text("Albero")
             }
             .padding(.bottom, 10)
@@ -258,7 +247,11 @@ struct Score: View {
         }
         
         if albero {
-            result += "Albero " + (is_tree(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            if disconnectionForced {
+                result += "Albero NO\n"
+            } else {
+                result += "Albero " + (is_tree(degree_sequence: vettore) ? "SI" : "NO") + "\n"
+            }
         }
         
         return result
@@ -332,7 +325,7 @@ struct Score: View {
      * Calculates the results and shows the modal view.
      */
     private func calculate() {
-        calculationResult = main(d1: textField1, d2: textField2, hamiltoniano: isHamiltonian, sconnesso: isDisconnected, dueConnesso: isDueConnesso, albero: isAlbero)
+        calculationResult = main(d1: scoreData.textField1, d2: scoreData.textField2, hamiltoniano: scoreData.isHamiltonian, sconnesso: scoreData.isDisconnected, dueConnesso: scoreData.isDueConnesso, albero: scoreData.isAlbero)
         showModal = true
     }
 }
@@ -346,7 +339,7 @@ struct ModalView4: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("")
+            Text("Risultato")
                 .font(.largeTitle)
                 .padding(.bottom, 20)
             
@@ -381,5 +374,19 @@ struct ModalView4: View {
  * Preview provider for the Score view.
  */
 #Preview {
-    Score()
+    Score(scoreData: ScoreData())
+}
+
+/**
+ * scoreData model to hold the state of the graphs.
+ */
+class ScoreData: ObservableObject {
+    @Published var textField1 = ""
+    @Published var textField2 = ""
+    @Published var isHamiltonian = false
+    @Published var isDisconnected = false
+    @Published var isDueConnesso = false
+    @Published var isAlbero = false
+    @Published var showModal = false
+    @Published var calculationResult = ""
 }
