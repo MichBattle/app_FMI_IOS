@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		860030342BF0D9FF0022E394 /* ModTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860030332BF0D9FF0022E394 /* ModTool.swift */; };
+		864751962C0DAFC00095CF6D /* Theorems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864751952C0DAFC00095CF6D /* Theorems.swift */; };
 		86A10BFA2C0A71830096C78F /* HamiltonianCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BF92C0A71830096C78F /* HamiltonianCycle.swift */; };
 		86A10BFC2C0A74B80096C78F /* Albero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFB2C0A74B80096C78F /* Albero.swift */; };
 		86A10BFE2C0A74C10096C78F /* TwoConnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A10BFD2C0A74C10096C78F /* TwoConnected.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		860030332BF0D9FF0022E394 /* ModTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModTool.swift; sourceTree = "<group>"; };
+		864751952C0DAFC00095CF6D /* Theorems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theorems.swift; sourceTree = "<group>"; };
 		8647EB282C086F5E00A1A783 /* Fondamenti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fondamenti.entitlements; sourceTree = "<group>"; };
 		86A10BF92C0A71830096C78F /* HamiltonianCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamiltonianCycle.swift; sourceTree = "<group>"; };
 		86A10BFB2C0A74B80096C78F /* Albero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Albero.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				86A10BFB2C0A74B80096C78F /* Albero.swift */,
 				86A10BFD2C0A74C10096C78F /* TwoConnected.swift */,
 				86A10BFF2C0A74C70096C78F /* Disconnected.swift */,
+				864751952C0DAFC00095CF6D /* Theorems.swift */,
 			);
 			path = Fondamenti;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				86F7D3C32BEFED870063B9BD /* FondamentiApp.swift in Sources */,
 				86A10BFA2C0A71830096C78F /* HamiltonianCycle.swift in Sources */,
 				860030342BF0D9FF0022E394 /* ModTool.swift in Sources */,
+				864751962C0DAFC00095CF6D /* Theorems.swift in Sources */,
 				86A10C002C0A74C70096C78F /* Disconnected.swift in Sources */,
 				86A10BFE2C0A74C10096C78F /* TwoConnected.swift in Sources */,
 				86F7D3D52BEFF0990063B9BD /* RSACongruence.swift in Sources */,

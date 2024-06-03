@@ -73,18 +73,33 @@ struct ContentView: View {
                         .padding()
                     }
                     
-                    /**
-                     * Navigation link to the "Tool modulo" section.
-                     * The button has a blue background, white text, and rounded corners.
-                     */
-                    NavigationLink(destination: ModTool()) {
-                        Text("Tool modulo")
-                            .frame(width: geometry.size.width / 1.5 - 20, height: 40)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+                    HStack {
+                        /**
+                         * Navigation link to the "Tool modulo" section.
+                         * The button has a blue background, white text, and rounded corners.
+                         */
+                        NavigationLink(destination: ModTool()) {
+                            Text("Tool modulo")
+                                .frame(width: geometry.size.width / 3 - 20, height: 40)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .padding()
+                        
+                        /**
+                         * Navigation link to the "Theorems" section.
+                         * The button has a blue background, white text, and rounded corners.
+                         */
+                        NavigationLink(destination: Theorems()) {
+                            Text("Lista teoremi")
+                                .frame(width: geometry.size.width / 3 - 20, height: 40)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .padding()
                     }
-                    .padding()
                     
                     Spacer()
                 }

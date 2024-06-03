@@ -5,6 +5,7 @@
 //  Created by Michele Calliari on 11/05/24.
 //
 import SwiftUI
+import Foundation
 
 /**
  * View for the ModTool, which calculates the modulo of a given number.
@@ -53,7 +54,7 @@ struct ModTool: View {
             .padding(.bottom, 20)
         }
         .padding()
-        .navigationTitle("Calcola Modulo")
+        .navigationTitle("CalcolaModulo")
     }
     
     /**
