@@ -12,7 +12,7 @@ import SwiftUI
  */
 struct ContentView: View {
     @StateObject private var isoData = IsoData()
-    //@StateObject private var congruenceData = CongruenceData()
+    @StateObject private var congruenceData = CongruenceData()
     @StateObject private var rsaData = RSAData()
     @StateObject private var scoreData = ScoreData()
     @StateObject private var toolData = ToolData()
@@ -28,7 +28,7 @@ struct ContentView: View {
                          * Navigation link to the "Congruenze" section.
                          * The button has a blue background, white text, and rounded corners.
                          */
-                        NavigationLink(destination: CongruencesSystem(/*congruenceData: congruenceData*/)) {
+                        NavigationLink(destination: CongruencesSystem(congruenceData: congruenceData)) {
                             Text("Congruenze")
                                 .frame(width: geometry.size.width / 3 - 20, height: 40)
                                 .background(Color.blue)

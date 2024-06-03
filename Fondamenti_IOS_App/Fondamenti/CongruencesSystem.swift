@@ -1,47 +1,41 @@
-//
-//  CongruencesSystem.swift
-//  Fondamenti
-//
-//  Created by Michele Calliari on 11/05/24.
-//
 import SwiftUI
 import Foundation
 
 /**
- * Calculates the GCD using the Euclidean algorithm with backward substitution.
+ * Calcola l'MCD utilizzando l'algoritmo di Euclide con sostituzione inversa.
  *
  * - Parameters:
- *   - a: The first integer.
- *   - b: The second integer.
- * - Returns: A string describing the steps to calculate the GCD.
+ *   - a: Il primo intero.
+ *   - b: Il secondo intero.
+ * - Returns: Una stringa che descrive i passaggi per calcolare l'MCD.
  */
-func euclideanAlgorithm(_ a: Int, _ b: Int) -> String {
+func algoritmoEuclideo(_ a: Int, _ b: Int) -> String {
     var (x0, x1, y0, y1) = (1, 0, 0, 1)
     let (a0, b0) = (a, b)
     var (a, b) = (a, b)
     var result = ""
     while b != 0 {
-        result += "\(a) = \(a / b)*\(b) + \(a % b)\n"
+        result += "\(a) = \(a / b) * \(b) + \(a % b)\n"
         let q = a / b
         (a, b) = (b, a % b)
         (x0, x1) = (x1, x0 - q * x1)
         (y0, y1) = (y1, y0 - q * y1)
     }
-    result += "MCD = \(a) = \(x0)*\(a0) + \(y0)*\(b0)"
+    result += "MCD = \(a) = \(x0) * \(a0) + \(y0) * \(b0)"
     return result
 }
 
 /**
- * Solves the given system of congruences.
+ * Risolve il sistema di congruenze dato.
  *
  * - Parameters:
- *   - a: The first number.
- *   - k: The modulus for the first congruence.
- *   - b: The second number.
- *   - j: The modulus for the second congruence.
- * - Returns: A string describing the solution to the system of congruences.
+ *   - a: Il primo numero.
+ *   - k: Il modulo per la prima congruenza.
+ *   - b: Il secondo numero.
+ *   - j: Il modulo per la seconda congruenza.
+ * - Returns: Una stringa che descrive la soluzione al sistema di congruenze.
  */
-func solveCongruences(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
+func risolviCongruenze(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
     let s = abs(a - b)
     
     var (mcd, k0, j0) = euclide(k, j)
@@ -67,12 +61,12 @@ func solveCongruences(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
 }
 
 /**
- * Returns the GCD and the two coefficients for the linear combination.
+ * Restituisce l'MCD e i due coefficienti per la combinazione lineare.
  *
  * - Parameters:
- *   - a: The first integer.
- *   - b: The second integer.
- * - Returns: A tuple containing the GCD and the coefficients.
+ *   - a: Il primo intero.
+ *   - b: Il secondo intero.
+ * - Returns: Una tupla contenente l'MCD e i coefficienti.
  */
 func euclide(_ a: Int, _ b: Int) -> (Int, Int, Int) {
     var (x0, x1, y0, y1) = (1, 0, 0, 1)
@@ -88,12 +82,12 @@ func euclide(_ a: Int, _ b: Int) -> (Int, Int, Int) {
 }
 
 /**
- * Calculates the GCD normally.
+ * Calcola l'MCD normalmente.
  *
  * - Parameters:
- *   - a: The first integer.
- *   - b: The second integer.
- * - Returns: The GCD of the two integers.
+ *   - a: Il primo intero.
+ *   - b: Il secondo intero.
+ * - Returns: L'MCD dei due interi.
  */
 func mcd(_ a: Int, _ b: Int) -> Int {
     var (a, b) = (a, b)
@@ -104,26 +98,26 @@ func mcd(_ a: Int, _ b: Int) -> Int {
 }
 
 /**
- * Calculates the LCM.
+ * Calcola il mcm.
  *
  * - Parameters:
- *   - a: The first integer.
- *   - b: The second integer.
- * - Returns: The LCM of the two integers.
+ *   - a: Il primo intero.
+ *   - b: Il secondo intero.
+ * - Returns: Il mcm dei due interi.
  */
 func mcm(_ a: Int, _ b: Int) -> Int {
     return (a * b) / mcd(a, b)
 }
 
 /**
- * Executes the exercise.
+ * Esegue l'esercizio.
  *
  * - Parameters:
- *   - xNumber: The first number.
- *   - xMod: The modulus for the first number.
- *   - yNumber: The second number.
- *   - yMod: The modulus for the second number.
- * - Returns: A Text view with the result of the calculations.
+ *   - xNumber: Il primo numero.
+ *   - xMod: Il modulo per il primo numero.
+ *   - yNumber: Il secondo numero.
+ *   - yMod: Il modulo per il secondo numero.
+ * - Returns: Una vista di testo con il risultato dei calcoli.
  */
 func menu(xNumber: Int, xMod: Int, yNumber: Int, yMod: Int) -> Text {
     let k = xMod
@@ -132,24 +126,24 @@ func menu(xNumber: Int, xMod: Int, yNumber: Int, yMod: Int) -> Text {
     var result = ""
     
     if k > j {
-        result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZ A RITROSO:\n"
-        result += "\(euclideanAlgorithm(k, j))\n"
+        result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZIONE INVERSA:\n"
+        result += "\(algoritmoEuclideo(k, j))\n"
         result += "MCM = \(mcm(k, j))\n"
         result += "\nRISULTATI FINALI:\n"
-        result += "\(solveCongruences(xNumber, k, yNumber, j))"
+        result += "\(risolviCongruenze(xNumber, k, yNumber, j))"
     } else {
-        result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZ A RITROSO:\n"
-        result += "\(euclideanAlgorithm(j, k))\n"
+        result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZIONE INVERSA:\n"
+        result += "\(algoritmoEuclideo(j, k))\n"
         result += "MCM = \(mcm(j, k))\n"
         result += "\nRISULTATI FINALI:\n"
-        result += "\(solveCongruences(yNumber, j, xNumber, k))"
+        result += "\(risolviCongruenze(yNumber, j, xNumber, k))"
     }
     
     return Text(result)
 }
 
 /**
- * Modal view for displaying the content of the text fields.
+ * Vista modale per visualizzare il contenuto dei campi di testo.
  */
 struct ModalView6: View {
     @Environment(\.presentationMode) var presentationMode
@@ -166,7 +160,7 @@ struct ModalView6: View {
             Spacer()
             
             Button(action: {
-                // Closes the modal view
+                // Chiude la vista modale
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Indietro")
@@ -181,13 +175,10 @@ struct ModalView6: View {
 }
 
 /**
- * Main view for the "CongruencesSystem" section.
+ * Vista principale per la sezione "CongruencesSystem".
  */
 struct CongruencesSystem: View {
-    @State private var xNumber = ""
-    @State private var xMod = ""
-    @State private var yNumber = ""
-    @State private var yMod = ""
+    @ObservedObject var congruenceData: CongruenceData
     @State private var showModal = false
     
     var body: some View {
@@ -196,10 +187,10 @@ struct CongruencesSystem: View {
                 Text("Prima congruenza:")
                     .font(.headline)
                 
-                TextField("Numero", text: $xNumber)
+                TextField("Numero", text: $congruenceData.xNumber)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Mod", text: $xMod)
+                TextField("Mod", text: $congruenceData.xMod)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
@@ -207,14 +198,14 @@ struct CongruencesSystem: View {
                 Text("Seconda congruenza:")
                     .font(.headline)
                 
-                TextField("Numero", text: $yNumber)
+                TextField("Numero", text: $congruenceData.yNumber)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Mod", text: $yMod)
+                TextField("Mod", text: $congruenceData.yMod)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             
-            Spacer() // Spacer to push the button down
+            Spacer() // Spacer per spingere il pulsante verso il basso
             
             HStack {
                 Spacer()
@@ -234,17 +225,27 @@ struct CongruencesSystem: View {
         .padding()
         .navigationTitle("Sistema")
         .sheet(isPresented: $showModal) {
-            // Pass the values from the text fields to the modal view
-            ModalView6(xNumber: Int(xNumber) ?? 0, xMod: Int(xMod) ?? 0, yNumber: Int(yNumber) ?? 0, yMod: Int(yMod) ?? 0)
+            // Passa i valori dai campi di testo alla vista modale
+            ModalView6(xNumber: Int(congruenceData.xNumber) ?? 0, xMod: Int(congruenceData.xMod) ?? 0, yNumber: Int(congruenceData.yNumber) ?? 0, yMod: Int(congruenceData.yMod) ?? 0)
         }
     }
 }
 
 /**
- * Preview provider for "CongruencesSystem".
+ * Preview provider per "CongruencesSystem".
  */
 struct CongruencesSystemView_Previews: PreviewProvider {
     static var previews: some View {
-        CongruencesSystem()
+        CongruencesSystem(congruenceData: CongruenceData())
     }
+}
+
+/**
+ * Modello CongruenceData per mantenere lo stato del sistema.
+ */
+class CongruenceData: ObservableObject {
+    @Published var xNumber = ""
+    @Published var xMod = ""
+    @Published var yNumber = ""
+    @Published var yMod = ""
 }
