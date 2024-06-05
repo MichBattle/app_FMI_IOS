@@ -1,3 +1,9 @@
+//
+//  Score.swift
+//  Fondamenti
+//
+//  Created by Michele Calliari on 31/05/24.
+//
 import SwiftUI
 
 /**
@@ -7,66 +13,82 @@ struct Score: View {
     @ObservedObject var scoreData: ScoreData
     @State private var showModal: Bool = false
     @State private var calculationResult: String = ""
+    @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Group {
-                Text("Primo score:")
-                    .font(.headline)
-                
-                TextField("d1: x1,x2,...xn", text: $scoreData.textField1)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            Group {
-                Text("Secondo score:")
-                    .font(.headline)
-                
-                TextField("d2: x1,x2,...xn", text: $scoreData.textField2)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            Toggle(isOn: $scoreData.isHamiltonian) {
-                Text("Hamiltoniano")
-            }
-            .padding(.bottom, 10)
-            
-            Toggle(isOn: $scoreData.isDisconnected) {
-                Text("Sconnesso")
-            }
-            .padding(.bottom, 10)
-            
-            Toggle(isOn: $scoreData.isDueConnesso) {
-                Text("2-Connesso")
-            }
-            .padding(.bottom, 10)
-            
-            Toggle(isOn: $scoreData.isAlbero) {
-                Text("Albero")
-            }
-            .padding(.bottom, 10)
-            
-            Spacer()
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    calculate()
-                }) {
-                    Text("Calcola")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+        GeometryReader { geometry in
+            VStack(alignment: .leading) {
+                Group {
+                    Text("Primo score:")
+                        .font(.headline)
+                    
+                    TextField("d1: x1,x2,...xn", text: $scoreData.textField1)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
+                
+                Group {
+                    Text("Secondo score:")
+                        .font(.headline)
+                    
+                    TextField("d2: x1,x2,...xn", text: $scoreData.textField2)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                
+                Toggle(isOn: $scoreData.isHamiltonian) {
+                    Text("Hamiltoniano")
+                }
+                .padding(.bottom, 10)
+                
+                Toggle(isOn: $scoreData.isDisconnected) {
+                    Text("Sconnesso")
+                }
+                .padding(.bottom, 10)
+                
+                Toggle(isOn: $scoreData.isDueConnesso) {
+                    Text("2-Connesso")
+                }
+                .padding(.bottom, 10)
+                
+                Toggle(isOn: $scoreData.isAlbero) {
+                    Text("Albero")
+                }
+                .padding(.bottom, 10)
+                
                 Spacer()
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        calculate()
+                    }) {
+                        Text("Calcola")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    Spacer()
+                }
+                .padding(.bottom, 20)
             }
-            .padding(.bottom, 20)
-        }
-        .padding()
-        .navigationTitle("Score grafi")
-        .sheet(isPresented: $showModal) {
-            ModalView4(showModal: $showModal, result: $calculationResult)
+            .padding()
+            .navigationTitle("Score grafi")
+            .sheet(isPresented: $showModal) {
+                ModalView4(showModal: $showModal, result: $calculationResult)
+            }
+            .onAppear {
+                // Observe keyboard notifications
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                    if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                        self.keyboardHeight = keyboardFrame.height - geometry.safeAreaInsets.bottom
+                    }
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                    self.keyboardHeight = 0
+                }
+            }
+            .padding(.bottom, keyboardHeight)
         }
     }
     
@@ -339,10 +361,6 @@ struct ModalView4: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Risultato")
-                .font(.largeTitle)
-                .padding(.bottom, 20)
-            
             Text(result)
                 .padding(.leading)
                 .padding(.top)
