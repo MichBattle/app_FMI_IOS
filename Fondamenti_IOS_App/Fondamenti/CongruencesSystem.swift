@@ -47,11 +47,12 @@ func risolviCongruenze(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
     var (mcd, k0, j0) = euclide(k, j)
     
     let div = Double(s) / Double(mcd)
+    
     k0 = Int(Double(k0) * Double(k) * div)
     j0 = Int(Double(j0) * Double(-j) * div)
     j0 += Int(Double(b))
     k0 += Int(Double(a))
-    
+
     var c = Int(k0)
     var result = "C = \(c)\n"
     
@@ -135,15 +136,13 @@ func menu(xNumber: Int, xMod: Int, yNumber: Int, yMod: Int) -> Text {
         result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZIONE INVERSA:\n"
         result += "\(algoritmoEuclideo(k, j))\n"
         result += "MCM = \(mcm(k, j))\n"
-        result += "\nRISULTATI FINALI:\n"
-        result += "\(risolviCongruenze(xNumber, k, yNumber, j))"
     } else {
         result += "\nCALCOLO MCD CON EUCLIDE E SOSTITUZIONE INVERSA:\n"
         result += "\(algoritmoEuclideo(j, k))\n"
         result += "MCM = \(mcm(j, k))\n"
-        result += "\nRISULTATI FINALI:\n"
-        result += "\(risolviCongruenze(yNumber, j, xNumber, k))"
     }
+    result += "\nRISULTATI FINALI:\n"
+    result += "\(risolviCongruenze(xNumber, k, yNumber, j))"
     
     return Text(result)
 }
