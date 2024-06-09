@@ -49,20 +49,45 @@ func risolviCongruenze(_ a: Int, _ k: Int, _ b: Int, _ j: Int) -> String {
     let div = Double(s) / Double(mcd)
     
     k0 = Int(Double(k0) * Double(k) * div)
-    j0 = Int(Double(j0) * Double(-j) * div)
-    j0 += Int(Double(b))
-    k0 += Int(Double(a))
-
-    var c = Int(k0)
-    var result = "C = \(c)\n"
+    j0 = Int(Double(j0) * Double(j) * div)
     
+    var a1 = 0, b1 = 0, var1 = 0, var2 = 0
+    if(a > b){
+        a1 = a
+        b1 = -1*b
+        var1 = a1 - k0
+        var2 = -1*b1 + j0
+    }else{
+        a1 = -1*a
+        b1 = b
+        var1 = -1*a1 + k0
+        var2 = b1 - j0
+    }
+    
+    print(a1, b1)
+    print(var1, var2)
+    
+    var c = 0
+    
+    if(var1 == var2) {
+        c = Int(var1)
+    }
+    
+    var result = "C = \(c)\n"
     let m = mcm(k, j)
     
     while c < 0 {
         c += m
     }
     
-    result += "S = \(c)"
+    let MCM = mcm(k, j)
+    
+    while (c > 0){
+        c -= MCM
+    }
+    
+    c += MCM
+    result += "S = [\(c)]\(MCM)"
     
     return result
 }
